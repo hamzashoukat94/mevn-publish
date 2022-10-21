@@ -5,11 +5,11 @@
 
 	<groupId>io.github.sufyankhanrao</groupId>
 	<artifactId>hello-world</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 
 	<name>hello-world</name>
 	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>https://github.com/hamzashoukat94/maven-publish</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,9 +18,9 @@
 	</properties>
 
 	<scm>
-		<connection>scm:git:git:https://github.com/hamzashoukat94/mevn-publish.git</connection>
-		<developerConnection>scm:git:ssh://github.com/hamzashoukat94/mevn-publish.git</developerConnection>
-		<url>https://github.com/hamzashoukat94/mevn-publish</url>
+		<connection>scm:git:git:https://github.com/hamzashoukat94/maven-publish.git</connection>
+		<developerConnection>scm:git:ssh://github.com/hamzashoukat94/maven-publish.git</developerConnection>
+		<url>https://github.com/hamzashoukat94/maven-publish</url>
 	</scm>
 
 	<distributionManagement>
@@ -154,7 +154,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
 				<executions>
 					<execution>
 						<id>sign-artifacts</id>
@@ -162,6 +161,12 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
+						<configuration>
+							<gpgArguments>
+								<arg>--pinentry-mode</arg>
+								<arg>loopback</arg>
+							</gpgArguments>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -171,6 +176,42 @@
 				<version>2.0.0-M1</version>
 				<configuration>
 					<connectionType>connection</connectionType>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>attach-javadoc</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-source</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
 		</plugins>
