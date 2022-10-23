@@ -21,7 +21,7 @@ jobs:
       - name: build artifact
         run: mvn clean package
       - name: install artifact
-        run: mvn -e install
+        run: mvn -e install -Dgpg.passphrase = MAVEN_GPG_PASSPHRASE
       - name: Publish to the Maven Central Repository
         run: |
           mvn \
