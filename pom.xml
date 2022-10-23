@@ -228,7 +228,7 @@
 	<licenses>
 		<license>
 			<name>APIMATIC REFERENCE SOURCE LICENSE</name>
-			<url>https://github.com/hamzashoukat94/mevn-publish/blob/main/hello-world/LICENSE</url>
+			<url>https://github.com/hamzashoukat94/maven-publish/blob/main/LICENSE</url>
 		</license>
 	</licenses>
 </project>
