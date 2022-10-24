@@ -1,11 +1,22 @@
-name: release version
-
+name: Release To Maven
+run-name: ${{ github.event.inputs.Title }} (${{ github.event.inputs.Version }})
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      Version:
+        description: "Version to be released in format: x.y.z, where x => major version, y => minor version and z => patch version"
+        required: true
+        default: "0.1.0"
+      Title:
+        description: "Title of the release"
+        required: true
+        default: "Improving API developer experience"
 
 jobs:
   publish:
+    name: Creating release version ${{ github.event.inputs.Version }}
     runs-on: ubuntu-latest
+    environment: Production
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java for publishing to Maven Central Repository
@@ -21,7 +32,21 @@ jobs:
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: build artifact
-        run: mvn -B package --file pom.xml
+        run: mvn clean package
+      - name: Create Tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.TAGS_TOKEN }}
+          custom_tag: ${{ github.event.inputs.Version }}
+          tag_prefix: ""
+          
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with: 
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: ${{ github.event.inputs.Title }}
+          body: ${{ steps.tag_version.outputs.changelog }}
       - name: Publish to the Maven Central Repository
         run: |
           mvn \
