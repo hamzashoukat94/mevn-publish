@@ -1,4 +1,4 @@
-package io.github.sufyankhanrao.hello_world;
+package io.github.hamzashoukat94.hello_world;
 
 import static org.junit.Assert.assertTrue;
 
