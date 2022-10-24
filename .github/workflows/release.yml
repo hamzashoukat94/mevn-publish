@@ -16,7 +16,6 @@ jobs:
   publish:
     name: Creating release version ${{ github.event.inputs.Version }}
     runs-on: ubuntu-latest
-    environment: Test
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java for publishing to Maven Central Repository
@@ -49,8 +48,8 @@ jobs:
           body: ${{ steps.tag_version.outputs.changelog }}
       - id: install-secret-key
         name: Install gpg secret key
-        run: |
-            echo ${{ secrets.OSSRH_USERNAME }}
+        run: 'echo "$MAVEN_USERNAME" > username'
+        shell: bash
       - name: Publish to the Maven Central Repository
         run: |
           mvn \
