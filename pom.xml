@@ -227,4 +227,5 @@
 			<url>https://github.com/hamzashoukat94/maven-publish/blob/main/LICENSE</url>
 		</license>
 	</licenses>
+	<description>A developer experience project</description>
 </project>
