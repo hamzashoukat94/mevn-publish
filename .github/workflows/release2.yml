@@ -23,4 +23,4 @@ jobs:
           gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY  }}
           gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
           nexus_username: ${{ secrets.OSSRH_USERNAME  }}
-          nexus_password: GR911m31GR911m31!
+          nexus_password: ${{ secrets.OSSRH_TOKEN }}
