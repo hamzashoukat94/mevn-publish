@@ -44,7 +44,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with: 
           tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: ${{ github.event.inputs.Title }}
+          name: Release ${{ github.event.inputs.Title }}
           body: ${{ steps.tag_version.outputs.changelog }}
       - name: Publish to the Maven Central Repository
         run: |
