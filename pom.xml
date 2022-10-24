@@ -15,11 +15,18 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-
+	<developers>
+		<developer>
+			<name>Hamza shoukat</name>
+			<email>hamza94shoukat@gmail.com</email>
+			<organization>hamza94shoukat</organization>
+			<organizationUrl>https://github.com/hamzashoukat94</organizationUrl>
+		</developer>
+	</developers>
 	<scm>
 		<connection>scm:git:git:https://github.com/hamzashoukat94/maven-publish.git</connection>
-		<developerConnection>scm:git:ssh://github.com/hamzashoukat94/maven-publish.git</developerConnection>
-		<url>https://github.com/hamzashoukat94/maven-publish</url>
+		<url>https://github.com/hamzashoukat94/maven-publish/tree/main</url>
+		<developerConnection>https://github.com/hamzashoukat94/maven-publish/tree/mainpublish.git</developerConnection>
 	</scm>
 
 	<distributionManagement>
@@ -113,7 +120,7 @@
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -199,7 +206,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
