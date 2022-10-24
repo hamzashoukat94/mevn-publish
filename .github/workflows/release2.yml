@@ -7,6 +7,7 @@ on:
 jobs:
   release_2:
     runs-on: ubuntu-latest
+    environment: Test
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
