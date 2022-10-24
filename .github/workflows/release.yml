@@ -1,20 +1,10 @@
 name: Release To Maven
-run-name: ${{ github.event.inputs.Title }} (${{ github.event.inputs.Version }})
 on:
-  workflow_dispatch:
-    inputs:
-      Version:
-        description: "Version to be released in format: x.y.z, where x => major version, y => minor version and z => patch version"
-        required: true
-        default: "0.1.0"
-      Title:
-        description: "Title of the release"
-        required: true
-        default: "Improving API developer experience"
-
+  workflow_dispatch
+   
 jobs:
   publish:
-    name: Creating release version ${{ github.event.inputs.Version }}
+    name: Creating release version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,37 +16,20 @@ jobs:
           cache: maven
           server-id: ossrh
           settings-path: ${{ github.workspace }}
-          server-username: MAVEN_USERNAME
+          server-username: sufyankhanrao123
           server-password: GR911m31GR911m31!
-          gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-private-key: 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lIsr
+          gpg-passphrase: 4Islamabad
       - name: build artifact
         run: mvn clean package
-      - name: Create Tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.0
-        with:
-          github_token: ${{ secrets.TOKEN_GITHUB }}
-          custom_tag: ${{ github.event.inputs.Version }}
-          tag_prefix: ""
-          
-      - name: Create release
-        uses: ncipollo/release-action@v1
-        with: 
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ github.event.inputs.Title }}
-          body: ${{ steps.tag_version.outputs.changelog }}
       - id: install-secret-key
         name: Install gpg secret key
-        run: 'echo "$MAVEN_USERNAME" > username'
+        run: 'echo "${{ secrets.OSSRH_USERNAME }}" > username'
         shell: bash
       - name: Publish to the Maven Central Repository
         run: |
           mvn \
             --no-transfer-progress \
             --batch-mode \
-            -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
+            -Dgpg.passphrase=4Islamabad \
             clean deploy
-        env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
