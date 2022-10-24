@@ -1,0 +1,25 @@
+name: Release 2
+
+# Run workflow on commits to the `master` branch
+on:
+   workflow_dispatch
+
+jobs:
+  release_2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Java and Maven
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Release Maven package
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY  }}
+          gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
+          nexus_username: ${{ secrets.OSSRH_USERNAME  }}
+          nexus_password: GR911m31GR911m31!
