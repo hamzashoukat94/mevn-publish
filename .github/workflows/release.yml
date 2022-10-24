@@ -49,7 +49,7 @@ jobs:
       - id: install-secret-key
         name: Install gpg secret key
         run: |
-            echo MAVEN_USERNAME
+            echo ${{ secrets.OSSRH_USERNAME }}
       - name: Publish to the Maven Central Repository
         run: |
           mvn \
