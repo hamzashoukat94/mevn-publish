@@ -16,6 +16,7 @@ jobs:
   publish:
     name: Creating release version ${{ github.event.inputs.Version }}
     runs-on: ubuntu-latest
+    environment: Test
     steps:
       - uses: actions/checkout@v2
       - name: Set up Java for publishing to Maven Central Repository
