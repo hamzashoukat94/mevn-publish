@@ -25,4 +25,4 @@ jobs:
         CC_TEST_REPORTER_ID: 721531019864be5b0dab97356fbdcd84ee5703fd73a2f8e5b56ca229aea3e1df
       with:
         coverageLocations: |
-          ${{github.workspace}}/coverage-clover.xml:clover
+          ${{github.workspace}}/jacoco.xml:jacoco
