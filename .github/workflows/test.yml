@@ -20,9 +20,12 @@ jobs:
     - name: Run tests
       run: mvn test
     - name: Upload coverage report
-      uses: paambaati/codeclimate-action@v3.0.0
+      uses: paambaati/codeclimate-action@v3.2.0
       env:
-        CC_TEST_REPORTER_ID: 721531019864be5b0dab97356fbdcd84ee5703fd73a2f8e5b56ca229aea3e1df
+        # Set CC_TEST_REPORTER_ID as secret of your repo
+        CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+        JACOCO_SOURCE_PATH: "${{github.workspace}}/src/main/java"
       with:
-        coverageLocations: |
-          ${{github.workspace}}/jacoco.xml:jacoco
+        # The report file must be there, otherwise Code Climate won't find it
+        coverageCommand: mvn test
+        coverageLocations: ${{github.workspace}}/target/site/jacoco/jacoco.xml:jacoco
