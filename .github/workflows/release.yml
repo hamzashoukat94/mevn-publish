@@ -37,8 +37,12 @@ jobs:
            commit_prefix: "[ci skip]"
            commit_message: "Update pom.xml"
            force: false
-           target_branch: main
-     
+           target_branch: ${{ github.ref }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN_GITHUB }}
+          branch: ${{ github.ref }}
       - name: Create Tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
