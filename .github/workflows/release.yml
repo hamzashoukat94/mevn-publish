@@ -29,13 +29,15 @@ jobs:
           
       - name: Update version in pom.xml (Release only)
         run: mvn -B versions:set -DnewVersion=${{ github.event.inputs.Version }} -DgenerateBackupPoms=false
-      - name: Semantic Version
-        run: |
-          git config remote.origin.url https://github.com/hamzashoukat94/maven-publish.git
-          git config --global user.name hamzashoukat94
-          git config --global user.email hamza94shoukat@gmail.com
-          git add -A
-          git commit -am "version beta update"
+      - name: Run the Action
+        uses: devops-infra/action-commit-push@master
+        with:
+           github_token: "${{ secrets.TOKEN_GITHUB }}"
+           add_timestamp: true
+           commit_prefix: "[ci skip]"
+           commit_message: "Update pom.xml"
+           force: false
+           target_branch: main
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
