@@ -34,7 +34,6 @@ jobs:
         with:
            github_token: "${{ secrets.TOKEN_GITHUB }}"
            add_timestamp: true
-           commit_prefix: "[ci skip]"
            commit_message: "Update pom.xml"
            force: false
            target_branch: ${{ github.ref }}
