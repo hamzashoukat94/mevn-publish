@@ -29,19 +29,7 @@ jobs:
           
       - name: Update version in pom.xml (Release only)
         run: mvn -B versions:set -DnewVersion=${{ github.event.inputs.Version }} -DgenerateBackupPoms=false
-      - name: Run the Action
-        uses: devops-infra/action-commit-push@master
-        with:
-           github_token: "${{ secrets.TOKEN_GITHUB }}"
-           add_timestamp: true
-           commit_message: "Update pom.xml"
-           force: false
-           target_branch: ${{ github.ref }}
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.TOKEN_GITHUB }}
-          branch: ${{ github.ref }}
+     
       - name: Create Tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
@@ -63,3 +51,16 @@ jobs:
           gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
           nexus_username: ${{ secrets.OSSRH_USERNAME  }}
           nexus_password: ${{ secrets.OSSRH_TOKEN }}
+      - name: Run the Action
+        uses: devops-infra/action-commit-push@master
+        with:
+           github_token: "${{ secrets.TOKEN_GITHUB }}"
+           add_timestamp: true
+           commit_message: "Update pom.xml"
+           force: false
+           target_branch: ${{ github.ref }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN_GITHUB }}
+          branch: ${{ github.ref }}
