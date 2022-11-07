@@ -41,15 +41,15 @@ jobs:
         if: steps.release.outputs.exit_code == 0
         uses: devops-infra/action-commit-push@master
         with:
-           github_token: "${{ secrets.GITHUB_TOKEN }}"
+           github_token: ${{ secrets.GITHUB_TOKEN }}
            commit_message: "ci(release-version): update pom.xml [ci skip]"
            force: false
-      - name: Push to protected branch
-        uses: CasperWA/push-protected@v2
+      - name: Create pull request
+        uses: devops-infra/action-pull-request@master
         with:
-           token: ${{ secrets.TOKEN_GITHUB }}
-           branch: main
-           unprotect_reviews: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          body: "**Automated pull request**<br><br>Replaced foo/bar"
+          title: ${{ github.event.commits[0].message }}
       - name: Create tag
         if: steps.release.outputs.exit_code == 0
         id: tag_version
