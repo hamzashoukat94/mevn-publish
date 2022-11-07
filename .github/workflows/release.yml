@@ -46,6 +46,7 @@ jobs:
           signoff: false
           branch: project-version-update
           delete-branch: true
+          base: main
           title: '[Release To maven] Update POM'
           body: |
             Update report
