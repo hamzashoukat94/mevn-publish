@@ -29,14 +29,7 @@ jobs:
           
       - name: Update version in pom.xml (Release only)
         run: mvn -B versions:set -DnewVersion=${{ github.event.inputs.Version }} -DgenerateBackupPoms=false
-      - name: Release Maven package
-        id: release
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY  }}
-          gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
-          nexus_username: ${{ secrets.OSSRH_USERNAME  }}
-          nexus_password: ${{ secrets.OSSRH_TOKEN }}
+        
       - name: Run the Action
         if: steps.release.outputs.exit_code == 0
         uses: devops-infra/action-commit-push@master
@@ -46,13 +39,21 @@ jobs:
            commit_message: "Update pom.xml"
            force: false
            target_branch: ${{ github.ref }}
-      - name: Push changes
-        if: steps.release.outputs.exit_code == 0
-        uses: ad-m/github-push-action@master
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        
+      - name: Release Maven package
+        if: steps.cpr.outputs.exit_code == 0
+        id: release
+        uses: samuelmeuli/action-maven-publish@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          force: true
+          gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY  }}
+          gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
+          nexus_username: ${{ secrets.OSSRH_USERNAME  }}
+          nexus_password: ${{ secrets.OSSRH_TOKEN }}
+      
+     
       - name: Create Tag
         if: steps.release.outputs.exit_code == 0
         id: tag_version
