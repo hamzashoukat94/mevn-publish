@@ -42,31 +42,23 @@ jobs:
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
-        
-      - name: Release Maven package
-        if: steps.cpr.outputs.exit_code == 0
-        id: release
-        uses: samuelmeuli/action-maven-publish@v1
         with:
-          gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY  }}
-          gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
-          nexus_username: ${{ secrets.OSSRH_USERNAME  }}
-          nexus_password: ${{ secrets.OSSRH_TOKEN }}
-      
-     
-      - name: Create Tag
-        if: steps.release.outputs.exit_code == 0
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ github.event.inputs.Version }}
-          tag_prefix: ""
-          
-      - name: Create release
-        if: steps.release.outputs.exit_code == 0
-        uses: ncipollo/release-action@v1
-        with: 
-          tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ github.event.inputs.Title }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+          token: ${{ secrets.TOKEN_GITHIB }}
+          commit-message: Release version
+          signoff: false
+          branch: project-version-update
+          delete-branch: true
+          title: '[Release To maven] Update POM'
+          body: |
+            Update report
+            - Updated with *today's* date
+
+          labels: |
+            automated pr
+          assignees: hamza94shoukat
+          team-reviewers: |
+            owners
+            maintainers
+          milestone: 1
+          draft: false
+    
