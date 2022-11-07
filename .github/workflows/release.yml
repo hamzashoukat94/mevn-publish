@@ -31,10 +31,9 @@ jobs:
         run: mvn -B versions:set -DnewVersion=${{ github.event.inputs.Version }} -DgenerateBackupPoms=false
         
       - name: Run the Action
-        if: steps.release.outputs.exit_code == 0
         uses: devops-infra/action-commit-push@master
         with:
-           github_token: "${{ secrets.TOKEN_GITHUB }}"
+           github_token: "${{ secrets.GITHUB_TOKEN }}"
            add_timestamp: true
            commit_message: "Update pom.xml"
            force: false
@@ -43,7 +42,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.TOKEN_GITHIB }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Release version
           signoff: false
           branch: project-version-update
