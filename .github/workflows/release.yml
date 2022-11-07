@@ -34,9 +34,9 @@ jobs:
         uses: samuelmeuli/action-maven-publish@v1
         with:
           gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY  }}
-          gpg_passphrase: ${{ secrets.OSSRH_GPG_PASSPHRASE  }}
+          gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
           nexus_username: ${{ secrets.OSSRH_USERNAME  }}
-          nexus_password: ${{ secrets.OSSRH_PASSWORD }}
+          nexus_password: ${{ secrets.OSSRH_TOKEN }}
       - name: Commit the version change
         if: steps.release.outputs.exit_code == 0
         uses: devops-infra/action-commit-push@master
