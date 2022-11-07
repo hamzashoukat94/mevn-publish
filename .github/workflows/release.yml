@@ -51,14 +51,9 @@ jobs:
           title: '[Release To maven] Update POM'
           body: |
             Update report
-            - Updated with *today's* date
 
           labels: |
             automated pr
-          assignees: hamza94shoukat
-          team-reviewers: |
-            owners
-            maintainers
           milestone: 1
           draft: false
     
