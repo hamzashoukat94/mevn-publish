@@ -37,22 +37,10 @@ jobs:
            commit_message: "Update pom.xml"
            force: false
            target_branch: project-version-update
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
+      - name: Push to protected branch
+        uses: CasperWA/push-protected@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Release version
-          signoff: false
-          branch: project-version-update
-          delete-branch: true
-          base: main
-          title: '[Release To maven] Update POM'
-          body: |
-            Update report
-
-          labels: |
-            automated pr
-          milestone: 1
-          draft: false
+           token: ${{ secrets.TOKEN_GITHUB }}
+           branch: main
+           unprotect_reviews: true
     
