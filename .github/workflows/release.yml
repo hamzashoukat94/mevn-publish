@@ -37,7 +37,7 @@ jobs:
            add_timestamp: true
            commit_message: "Update pom.xml"
            force: false
-           target_branch: ${{ github.ref }}
+           target_branch: project-version-update
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
