@@ -50,6 +50,12 @@ jobs:
         with:
            token: ${{ secrets.TOKEN_GITHUB }}
            branch: main
+      - name: Delete branch
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{github.token}}
+          branches: project-version-update
+          suffix: -done
       - name: Create tag
         if: steps.release.outputs.exit_code == 0
         id: tag_version
