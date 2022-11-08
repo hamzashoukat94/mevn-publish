@@ -41,21 +41,21 @@ jobs:
 #         if: steps.release.outputs.exit_code == 0
         uses: devops-infra/action-commit-push@master
         with:
-           github_token: ${{ secrets.GITHUB_TOKEN }}
+           github_token: ${{ secrets.TOKEN_GITHUB }}
            commit_message: "ci(release-version): update pom.xml [ci skip]"
            force: false
-           target_branch: project-version-update
-      - name: Pushing to the protected branch 'protected'
-        uses: CasperWA/push-protected@v2
-        with:
-           token: ${{ secrets.TOKEN_GITHUB }}
-           branch: main
-      - name: Delete branch
-        uses: dawidd6/action-delete-branch@v3
-        with:
-          github_token: ${{github.token}}
-          branches: project-version-update
-      - run: echo "${{ github.event.head_commit.message }}"
+           target_branch: main
+#       - name: Pushing to the protected branch 'protected'
+#         uses: CasperWA/push-protected@v2
+#         with:
+#            token: ${{ secrets.TOKEN_GITHUB }}
+#            branch: main
+#       - name: Delete branch
+#         uses: dawidd6/action-delete-branch@v3
+#         with:
+#           github_token: ${{github.token}}
+#           branches: project-version-update
+      - run: echo $"{{ github.event.head_commit.message }}"
       - name: Create tag
 #         if: steps.release.outputs.exit_code == 0
         id: tag_version
