@@ -55,7 +55,7 @@ jobs:
         with:
           github_token: ${{github.token}}
           branches: project-version-update
-     
+      - run: echo ${{ github.event.head_commit.message }}
       - name: Create tag
 #         if: steps.release.outputs.exit_code == 0
         id: tag_version
