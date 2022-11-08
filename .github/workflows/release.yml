@@ -56,12 +56,11 @@ jobs:
           github_token: ${{github.token}}
           branches: project-version-update
       - name: Update git branch
-      - uses: Embraser01/update-git-branch-action@v1.0.0
-        if: github.ref == 'refs/heads/main'
+        uses: Embraser01/update-git-branch-action@v1.0.0
         with:
-           branch: main
-           force: 0 # To push-force to the branch
-           githubToken: ${{ secrets.TOKEN_GITHUB }} # Github Token
+          branch: main
+          force: 0 # To push-force to the branch
+          githubToken: ${{ secrets.TOKEN_GITHUB }} # Github Token
      
       - name: Create tag
 #         if: steps.release.outputs.exit_code == 0
