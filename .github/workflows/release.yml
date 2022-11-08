@@ -44,18 +44,25 @@ jobs:
            github_token: ${{ secrets.TOKEN_GITHUB }}
            commit_message: "ci(release-version): update pom.xml [ci skip]"
            force: false
-#            target_branch: project-version-update
-#       - name: Pushing to the protected branch 'protected'
-#         uses: CasperWA/push-protected@v2
-#         with:
-#            token: ${{ secrets.TOKEN_GITHUB }}
-#            branch: main
-#       - name: Delete branch
-#         uses: dawidd6/action-delete-branch@v3
-#         with:
-#           github_token: ${{github.token}}
-#           branches: project-version-update
-      - run: echo $"{{ github.event.head_commit.message }}"
+           target_branch: project-version-update
+      - name: Pushing to the protected branch 'protected'
+        uses: CasperWA/push-protected@v2
+        with:
+           token: ${{ secrets.TOKEN_GITHUB }}
+           branch: main
+      - name: Delete branch
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{github.token}}
+          branches: project-version-update
+      - name: Update git branch
+      - uses: Embraser01/update-git-branch-action@v1.0.0
+        if: github.ref == 'refs/heads/main'
+        with:
+           branch: main
+           force: 0 # To push-force to the branch
+           githubToken: ${{ secrets.TOKEN_GITHUB }} # Github Token
+     
       - name: Create tag
 #         if: steps.release.outputs.exit_code == 0
         id: tag_version
