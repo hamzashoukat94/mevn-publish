@@ -48,7 +48,7 @@ jobs:
            target_branch: project-version-update
       - name: Check number of files updated
         id: files_updated
-        run: echo "DIFF_COUNT=$(git diff --name-status | wc -l) >> $GITHUB_OUTPUT
+        run: echo "DIFF_COUNT=$(git diff --name-status | wc -l)" >> $GITHUB_OUTPUT
       - name: Pushing to the protected branch 'protected'
         # if: steps.release.outputs.exit_code == 0
         uses: CasperWA/push-protected@v2
