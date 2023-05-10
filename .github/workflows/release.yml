@@ -53,8 +53,9 @@ jobs:
            token: ${{ secrets.TOKEN_GITHUB }}
            branch: main
       - name: file_changed output
-        run: git whatchanged -1 --format=oneline | wc -l
+        run: git diff --name-status | wc -l
       - name: Delete branch
+        if: git diff --name-status | wc -l > 0
         uses: dawidd6/action-delete-branch@v3
         with:
           github_token: ${{github.token}}
