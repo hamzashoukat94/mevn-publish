@@ -49,7 +49,9 @@ jobs:
       - name: Check number of files updated
         id: files_updated
         run: >-
-            echo "{name}={git diff --name-status | wc -l}" >> DIFF_COUNT
+         echo "::set-output name=NODE_VERSION::$(
+            git diff --name-status | wc -l
+         )"
       - name: Pushing to the protected branch 'protected'
         # if: steps.release.outputs.exit_code == 0
         uses: CasperWA/push-protected@v2
