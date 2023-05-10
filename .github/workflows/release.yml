@@ -46,24 +46,24 @@ jobs:
            commit_message: "ci(release-version): update pom.xml [ci skip]"
            force: false
            target_branch: project-version-update
+      - name: Check number of files updated
+        id: files_updated
+        run: >-
+            echo "{name}={git diff --name-status | wc -l}" >> DIFF_COUNT
       - name: Pushing to the protected branch 'protected'
         # if: steps.release.outputs.exit_code == 0
         uses: CasperWA/push-protected@v2
         with:
            token: ${{ secrets.TOKEN_GITHUB }}
            branch: main
-      - name: file_changed output
-        id: file_changed
-        run: >-
-            echo "::set-output name=DIFF_COUNT::$(
-            git diff --name-status | wc -l)"
+      - name: Debug
+        run: echo "${{steps.files_updated.outputs.DIFF_COUNT}}"
       - name: Delete branch
-        if: steps.file_changed.outputs.DIFF_COUNT != 0
+        if: steps.files_updated.outputs.DIFF_COUNT != 0
         uses: dawidd6/action-delete-branch@v3
         with:
           github_token: ${{github.token}}
           branches: project-version-update
-     
       - name: Create tag
 #         if: steps.release.outputs.exit_code == 0
         id: tag_version
