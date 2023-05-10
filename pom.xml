@@ -5,7 +5,7 @@
 
 	<groupId>io.github.hamzashoukat94</groupId>
 	<artifactId>hello-world</artifactId>
-	<version>10.0.0</version>
+	<version>10.1.7</version>
 	<name>hello-world</name>
 	<!-- FIXME change it to the project's website -->
 	<url>https://github.com/hamzashoukat94/maven-publish</url>
