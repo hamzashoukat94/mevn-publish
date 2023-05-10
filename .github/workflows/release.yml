@@ -53,9 +53,8 @@ jobs:
            token: ${{ secrets.TOKEN_GITHUB }}
            branch: main
       - name: file_changed output
-        run: echo "{steps.commit.outputs.files_changed}"
+        run: git whatchanged -1 --format=oneline | wc -l
       - name: Delete branch
-        if: steps.commit.outputs.exit_code == 0
         uses: dawidd6/action-delete-branch@v3
         with:
           github_token: ${{github.token}}
