@@ -66,5 +66,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with: 
           tag: ${{ steps.tag_version.outputs.new_tag }}
-          name: Release ${{ github.event.inputs.Version }}
+          name: Version ${{ github.event.inputs.Version }}
           body: ${{ steps.tag_version.outputs.changelog }}
