@@ -1,5 +1,5 @@
 name: Release To Maven Central
-run-name: Release (${{ github.event.inputs.Version }})
+run-name: Release ${{ github.event.inputs.Version }}
 # Release to Maven Central
 on:
    workflow_dispatch:
