@@ -51,10 +51,11 @@ jobs:
         with:
            token: ${{ secrets.TOKEN_GITHUB }}
            branch: main
-      - name: Delete branch
+      - name: Delete the intermediate branch
+        if: steps.release.outputs.exit_code == 0
         run: |
-         git branch -D project-version-update &>/dev/null || true
-         git push origin :project-version-update &>/dev/null || true
+           git branch -D project-version-update &>/dev/null || true
+           git push origin :project-version-update &>/dev/null || true
       - name: Create tag
 #         if: steps.release.outputs.exit_code == 0
         id: tag_version
