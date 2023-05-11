@@ -29,17 +29,16 @@ jobs:
           
       - name: Update version in POM
         run: mvn -B versions:set -DnewVersion=${{ github.event.inputs.Version }} -DgenerateBackupPoms=false
-#       - name: Release to Maven Central
-#         id: release
-#         uses: samuelmeuli/action-maven-publish@v1
-#         with:
-#           gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY  }}
-#           gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
-#           nexus_username: ${{ secrets.OSSRH_USERNAME  }}
-#           nexus_password: ${{ secrets.OSSRH_TOKEN }}
+      - name: Release to Maven Central
+        id: release
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.OSSRH_GPG_SECRET_KEY  }}
+          gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD  }}
+          nexus_username: ${{ secrets.OSSRH_USERNAME  }}
+          nexus_password: ${{ secrets.OSSRH_TOKEN }}
       - name: Commit the version change
-        id: commit
-        # if: steps.release.outputs.exit_code == 0
+        if: steps.release.outputs.exit_code == 0
         uses: devops-infra/action-commit-push@master
         with:
            github_token: ${{ secrets.TOKEN_GITHUB }}
@@ -47,24 +46,15 @@ jobs:
            force: false
            target_branch: project-version-update
       - name: Pushing to the protected branch 'protected'
-        # if: steps.release.outputs.exit_code == 0
+        if: steps.release.outputs.exit_code == 0
         uses: CasperWA/push-protected@v2
         with:
            token: ${{ secrets.TOKEN_GITHUB }}
            branch: main
-      - name: Delete Branch if exists
+      - name: Delete branch
         run: |
          git branch -D project-version-update &>/dev/null || true
          git push origin :project-version-update &>/dev/null || true
-#       - name: Check branch
-#         id: check_branch
-#         run: echo "EXISTS=$(git ls-remote --exit-code origin project-version-update | wc -l)" >> $GITHUB_OUTPUT 
-#       - name: Delete branch
-#         if: steps.check_branch.outputs.EXISTS == 1
-#         uses: dawidd6/action-delete-branch@v3
-#         with:
-#           github_token: ${{github.token}}
-#           branches: project-version-update
       - name: Create tag
 #         if: steps.release.outputs.exit_code == 0
         id: tag_version
