@@ -55,7 +55,7 @@ jobs:
       - name: Delete Branch if exists
         run: |
          git branch -D project-version-update &>/dev/null || true
-         git push origin project-version-updat &>/dev/null || true
+         git push origin project-version-update &>/dev/null || true
 #       - name: Check branch
 #         id: check_branch
 #         run: echo "EXISTS=$(git ls-remote --exit-code origin project-version-update | wc -l)" >> $GITHUB_OUTPUT 
